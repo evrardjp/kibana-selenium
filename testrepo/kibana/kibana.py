@@ -13,12 +13,13 @@ class KibanaOne(unittest.TestCase):
 
     def test_login(self):
         self.driver.get("http://kibana:4345f83228a74062335ec75caa5bceacf597bd549662389b50b@204.232.187.36:8443/")
-        element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR,".brand"))
-        )
-        # finally:
-        header = self.driver.find_element_by_css_selector('.brand').text
-        #     self.assertIn("Event Dashboard", header)
+        try:
+            element = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR,".brand"))
+            )
+        finally:
+            header = self.driver.find_element_by_css_selector('.brand').text
+            self.assertIn("Event Dashboard", header)
 
     # def test_graph_exists(self):
     #     self.driver.get("http://kibana:4345f83228a74062335ec75caa5bceacf597bd549662389b50b@204.232.187.36:8443/")
