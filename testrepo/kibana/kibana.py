@@ -31,6 +31,14 @@ class KibanaOne(unittest.TestCase):
         d = c.find_element_by_class_name('panel-container')
         self.assertIn("OPENSTACK EVENTS", d.text)
 
+    def test_log_section_exists(self):
+        self.driver.get("http://kibana:4345f83228a74062335ec75caa5bceacf597bd549662389b50b@204.232.187.36:8443/")
+        element = WebDriverWait(self.driver, 10).until(
+            EC.text_to_be_present_in_element((By.CSS_SELECTOR,".brand"), "Event Dashboard")
+            )
+        logs = self.driver.find_element_by_class_name("table-hover")
+        self.assertIn("@timestamp host module logmessage", logs.text)
+
     def tearDown(self):
         self.driver.quit()
 
