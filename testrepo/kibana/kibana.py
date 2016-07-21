@@ -13,7 +13,7 @@ class KibanaOne(unittest.TestCase):
         self.driver.set_window_size(1120, 550)
 
     def test_login(self):
-        self.driver.get("http://kibana:4345f83228a74062335ec75caa5bceacf597bd549662389b50b@204.232.187.36:8443/#/dashboard/file/Event-Dashboard.json")
+        self.driver.get("http://kibana:4345f83228a74062335ec75caa5bceacf597bd549662389b50b@204.232.187.36:8443/")
         element = WebDriverWait(self.driver, 10).until(
             EC.text_to_be_present_in_element((By.CSS_SELECTOR,".brand"), "Event Dashboard")
             )
@@ -38,6 +38,16 @@ class KibanaOne(unittest.TestCase):
             )
         logs = self.driver.find_element_by_class_name("table-hover")
         self.assertIn("@timestamp host module logmessage", logs.text)
+
+    def test_log_content_exists(self):
+        self.driver.get("http://kibana:4345f83228a74062335ec75caa5bceacf597bd549662389b50b@204.232.187.36:8443/")
+        element = WebDriverWait(self.driver, 10).until(
+            EC.text_to_be_present_in_element((By.CSS_SELECTOR,".brand"), "Event Dashboard")
+            )
+        pointer = self.driver.find_element_by_css_selector('tr.pointer')
+        pointer.click()
+
+
 
     def tearDown(self):
         self.driver.quit()
