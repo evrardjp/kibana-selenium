@@ -46,8 +46,19 @@ class KibanaOne(unittest.TestCase):
             )
         pointer = self.driver.find_element_by_css_selector('tr.pointer')
         pointer.click()
+        table = self.driver.find_element_by_css_selector('table.table-details')
+        tbody = table.find_element_by_css_selector('tbody')
+        log = tbody.find_elements_by_tag_name('tr')
 
-
+        for i, v in enumerate(log, start=1):
+            if "message" in v.text:
+                if "logmessage" in v.text:
+                    pass
+                else:
+                    child = i
+        css = "tr.ng-scope:nth-child({0}) > td:nth-child(3)".format(child)
+        mess_content = tbody.find_element_by_css_selector(css).text
+        self.assertNotNone(mess_content)
 
     def tearDown(self):
         self.driver.quit()
