@@ -14,11 +14,11 @@ class KibanaOne(unittest.TestCase):
          This is used for testing headless and locally.
         """
         service_args = ['--proxy=localhost:9999', '--proxy-type=socks5']
-        self.driver = webdriver.PhantomJS(service_args=service_args)
+        #self.driver = webdriver.PhantomJS(service_args=service_args)
         """
         Ensure self.driver = webdriver.PhantomJS() is uncommented for remote testing.
         """
-        # self.driver = webdriver.PhantomJS()
+        self.driver = webdriver.PhantomJS()
         self.driver.set_window_size(1120, 550)
         """This will create the session within which all actions take place"""
         self.driver.get("http://kibana:4345f83228a74062335ec75caa5bceacf597bd549662389b50b@204.232.187.36:8443/")
