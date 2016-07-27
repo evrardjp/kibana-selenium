@@ -2,7 +2,10 @@
 Kibana testing framework which uses selenium webdriver and phantomjs.
 
 
-# pip freeze (fix these docs later. Need to verify what each of these does and then document. Also want to create a requirements.txt file to help bootstrap the project.)
+# pip freeze 
+
+(fix these docs later. Need to verify what each of these does and then document. Also want to create a requirements.txt file to help bootstrap the project.)
+
 appnope==0.1.0
 backports.shutil-get-terminal-size==1.0.0
 decorator==4.0.10
