@@ -17,6 +17,7 @@ pickleshare==0.7.2
 prompt-toolkit==1.0.3
 ptyprocess==0.5.1
 Pygments==2.1.3
+PyYAML==3.11
 selenium==2.53.6
 simplegeneric==0.8.1
 six==1.10.0
