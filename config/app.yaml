@@ -1,0 +1,4 @@
+kibana:
+  username: kibana
+  password: 4345f83228a74062335ec75caa5bceacf597bd549662389b50b
+  external_vip: 204.232.187.36
