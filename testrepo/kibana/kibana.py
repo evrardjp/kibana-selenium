@@ -1,10 +1,15 @@
 import config
+import logging
 import time
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+
+log_format = "%(asctime)s [%(levelname)s] %(message)s"
+logging.basicConfig(format=log_format, filename='kibana.log',
+                    level=logging.ERROR)
 
 
 class KibanaOne(unittest.TestCase):
@@ -46,6 +51,7 @@ class KibanaOne(unittest.TestCase):
             time.sleep(1)
         except Exception, e:
             self.driver.save_screenshot('setup.png')
+            logging.error("Setup failed... {}".format(e))
             raise
 
     def test_login(self):
@@ -54,6 +60,7 @@ class KibanaOne(unittest.TestCase):
             self.assertIn("Event Dashboard", header)
         except Exception, e:
             self.driver.save_screenshot('login_ss.png')
+            logging.error("Login test failed with... {}".format(e))
             raise
 
     def test_graph_exists(self):
@@ -65,6 +72,7 @@ class KibanaOne(unittest.TestCase):
             self.assertIn("OPENSTACK EVENTS", panel.text)
         except Exception, e:
             self.driver.save_screenshot('graph_exists_ss.png')
+            logging.error("Graph test failed with... {}".format(e))
             raise
 
     def test_log_section_exists(self):
@@ -73,6 +81,7 @@ class KibanaOne(unittest.TestCase):
             self.assertIn("@timestamp host module logmessage", logs.text)
         except Exception, e:
             self.driver.save_screenshot('log_section_ss.png')
+            logging.error("Log Section test failed with... {}".format(e))
             raise
 
     def test_log_content_exists(self):
@@ -96,6 +105,7 @@ class KibanaOne(unittest.TestCase):
             self.assertIsNotNone(mess_content)
         except Exception, e:
             self.driver.save_screenshot('log_content_ss.png')
+            logging.error("Log Content test failed with... {}".format(e))
             raise
 
     def tearDown(self):
