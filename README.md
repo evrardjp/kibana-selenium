@@ -22,3 +22,13 @@ simplegeneric==0.8.1
 six==1.10.0
 traitlets==4.2.2
 wcwidth==0.1.7
+
+
+
+
+## Install
+
+```bash
+pip install -r requirements.txt
+export PYTHONPATH=$(pwd)
+```
