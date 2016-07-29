@@ -27,7 +27,7 @@ In order to ensure operation in headless mode you will need to install phantomJS
 ```
 
 ## Test execution
-
+(Still needs work... as in it doesn't exist yet :D)
 ```
 cd /opt/kibana-selenium/testrepo/kibana
 python kibana.py
