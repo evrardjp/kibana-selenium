@@ -11,13 +11,13 @@ Kibana testing framework which uses selenium webdriver and phantomjs.
     . ~/venv/kib-sel/bin/activate
 
 **Required
-cd /opt && git clone https://github.com/Rydor/kibana-selenium.git   
-cd kibana-selenium
-pip install -r requirements.txt
-export PYTHONPATH=$(pwd)
+    cd /opt && git clone https://github.com/Rydor/kibana-selenium.git   
+    cd kibana-selenium
+    pip install -r requirements.txt
+    export PYTHONPATH=$(pwd)
 
 **Configuration file generator
-python config-gen.py
+    python config-gen.py
 ```
 
 ## Test execution
