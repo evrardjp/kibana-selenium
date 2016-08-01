@@ -25,6 +25,15 @@ In order to ensure operation in headless mode you will need to install phantomJS
 (Still needs work... as in it does not exist yet :D)
 -Configuration file generator: This will create the configuration file needed for test execution
     python config-gen.py
+    
+    
+-Current configuration management:
+    user:
+        kibana
+    password: on infra
+        grep -R "kibana_password" /etc/openstack_deploy/user_extras_secrets.yml
+    external_vip: on infra
+        grep -R "external_lb_vip_address" /opt/rpc-openstack/jenkins-oa/inventory/group_vars/qe-iad3-lab03.yml
 ```
 
 ## Test execution
