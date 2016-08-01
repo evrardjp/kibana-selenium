@@ -42,3 +42,14 @@ In order to ensure operation in headless mode you will need to install phantomJS
 cd /opt/kibana-selenium/testrepo/kibana
 python kibana.py
 ```
+
+
+## Troubleshooting:
+
+```
+-Setup
+    Most common issue is that the pip.conf file doesn't allow remote lookups. If you get a pip install error while performing step : pip install -r requirements.txt, the easiest solution is to move the ~/.pip/pip.conf file execute install and then move back the pip.conf file.
+    
+-Error reporting
+    Currently errors are output to a file named kibana.log in the directory the test were run from.
+    Screenshots are also created into the current working directory.
