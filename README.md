@@ -22,9 +22,8 @@ In order to ensure operation in headless mode you will need to install phantomJS
     pip install -r requirements.txt
     export PYTHONPATH=$(pwd)
 
-(Still needs work... as in it does not exist yet :D)
--Configuration file generator: This will create the configuration file needed for test execution
-    python config-gen.py
+-Configuration file generator: This will create the configuration file needed for test execution in iad3-2 and iad3-3
+    python conf-gen.py
     
     
 -Current configuration management:
