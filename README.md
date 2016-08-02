@@ -2,34 +2,54 @@
 Kibana testing framework which uses selenium webdriver and phantomjs.
 
 
-# pip freeze 
-
-(fix these docs later. Need to verify what each of these does and then document. Also want to create a requirements.txt file to help bootstrap the project.)
-
-appnope==0.1.0
-backports.shutil-get-terminal-size==1.0.0
-decorator==4.0.10
-ipython==5.0.0
-ipython-genutils==0.1.0
-pathlib2==2.1.0
-pexpect==4.2.0
-pickleshare==0.7.2
-prompt-toolkit==1.0.3
-ptyprocess==0.5.1
-Pygments==2.1.3
-PyYAML==3.11
-selenium==2.53.6
-simplegeneric==0.8.1
-six==1.10.0
-traitlets==4.2.2
-wcwidth==0.1.7
-
-
-
+## Pre-Setup
+In order to ensure operation in headless mode you will need to install phantomJS
+```
+    apt-get install phantomjs
+```
 
 ## Install
 
 ```bash
-pip install -r requirements.txt
-export PYTHONPATH=$(pwd)
+-Optional: Best practice is to setup a virtualenv before proceeding.
+    pip install virtualenv
+    virtualenv ~/venv/kib-sel
+    . ~/venv/kib-sel/bin/activate
+
+-Required: These steps are needed everytime you rebuild the project.
+    cd /opt && git clone https://github.com/Rydor/kibana-selenium.git   
+    cd kibana-selenium
+    pip install -r requirements.txt
+    export PYTHONPATH=$(pwd)
+
+(Still needs work... as in it does not exist yet :D)
+-Configuration file generator: This will create the configuration file needed for test execution
+    python config-gen.py
+    
+    
+-Current configuration management:
+    user:
+        kibana
+    password: on infra
+        grep -R "kibana_password" /etc/openstack_deploy/user_extras_secrets.yml
+    external_vip: on infra
+        grep -R "external_lb_vip_address" /opt/rpc-openstack/jenkins-oa/inventory/group_vars/qe-iad3-lab03.yml
 ```
+
+## Test execution
+
+```
+cd /opt/kibana-selenium/testrepo/kibana
+python kibana.py
+```
+
+
+## Troubleshooting:
+
+```
+-Setup
+    Most common issue is that the pip.conf file doesn't allow remote lookups. If you get a pip install error while performing step : pip install -r requirements.txt, the easiest solution is to move the ~/.pip/pip.conf file execute install and then move back the pip.conf file.
+    
+-Error reporting
+    Currently errors are output to a file named kibana.log in the directory the test were run from.
+    Screenshots are also created into the current working directory.
