@@ -32,4 +32,4 @@ append.write("  username: kibana\n")
 append.write("  "+pas)
 append.write(vip)
 append.close()
-
+print "Config file generated into config/app.yaml"
