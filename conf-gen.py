@@ -29,7 +29,7 @@ f.write("kibana:\n")
 f.close()
 append = open('/opt/kibana-selenium/config/app.yaml', 'a')
 append.write("  username: kibana\n")
-append.write(pas+'\n')
+append.write("  "+pas)
 append.write(vip)
 append.close()
 
