@@ -26,8 +26,9 @@ class KibanaOne(unittest.TestCase):
             Ensure self.driver = webdriver.PhantomJS()
             is uncommented for remote testing.
             """
-            self.driver = webdriver.PhantomJS(service_args=service_args)
-            # self.driver = webdriver.PhantomJS()
+            # self.driver = webdriver.PhantomJS(service_args=service_args)
+            self.driver = webdriver.PhantomJS()
+            # self.driver = webdriver.Firefox()
             self.driver.set_window_size(1920, 1080)
 
             """
@@ -35,8 +36,8 @@ class KibanaOne(unittest.TestCase):
             """
             conf = config.app['kibana']
             user = conf['username']
-            passwd = conf['password']
-            ext_vip = conf['external_vip']
+            passwd = conf['kibana_password']
+            ext_vip = conf['external_lb_vip_address']
             url = "http://{0}:{1}@{2}:8443/".format(user, passwd, ext_vip)
             self.driver.get(url)
 
