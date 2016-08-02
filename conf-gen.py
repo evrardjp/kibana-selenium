@@ -13,3 +13,23 @@ def get_external_lb_vip():
     inv = "/opt/rpc-openstack/jenkins-oa/inventory/group_vars/{0}.yml".format(h)
     elva = subprocess.check_output(["grep", "-R", "external_lb_vip_address", inv])
     return elva
+
+
+def get_password():
+    password = subprocess.check_output([
+        "grep", "-R", "kibana_password",
+        "/etc/openstack_deploy/user_extras_secrets.yml"])
+    return password
+
+vip = get_external_lb_vip()
+pas = get_password()
+
+f = open('/opt/kibana-selenium/config/app.yaml', 'w')
+f.write("kibana:\n")
+f.close()
+append = open('/opt/kibana-selenium/config/app.yaml', 'a')
+append.write("  username: kibana\n")
+append.write(pas+'\n')
+append.write(vip)
+append.close()
+

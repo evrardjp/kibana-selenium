@@ -1,4 +1,4 @@
 kibana:
   username:
-  password: 
-  external_vip: 
+  kibana_password:
+  external_lb_vip_address:
