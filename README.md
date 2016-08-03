@@ -19,14 +19,17 @@ In order to ensure operation in headless mode you will need to install phantomJS
 -Required: These steps are needed everytime you rebuild the project.
     cd /opt && git clone https://github.com/Rydor/kibana-selenium.git   
     cd kibana-selenium
+    mv ~/.pip/pip.conf ~/.pip/pip2.conf
     pip install -r requirements.txt
+    mv ~/.pip/pip2.conf ~/.pip/pip.conf
     export PYTHONPATH=$(pwd)
+
 
 -Configuration file generator: This will create the configuration file needed for test execution in iad3-2 and iad3-3
     python conf-gen.py
     
     
--Current configuration management:
+-Local configuration management:
     user:
         kibana
     password: on infra
@@ -38,8 +41,7 @@ In order to ensure operation in headless mode you will need to install phantomJS
 ## Test execution
 
 ```
-cd /opt/kibana-selenium/testrepo/kibana
-python kibana.py
+python /opt/kibana-selenium/testrepo/kibana/kibana/py
 ```
 
 
