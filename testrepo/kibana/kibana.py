@@ -58,7 +58,7 @@ class KibanaOne(unittest.TestCase):
 
     def test_login(self):
         try:
-            header = self.driver.find_element_by_css_selector('.brandtf').text
+            header = self.driver.find_element_by_css_selector('.brand').text
             self.assertIn("Event Dashboard", header)
         except Exception, e:
             self.driver.save_screenshot('login_ss.png')
