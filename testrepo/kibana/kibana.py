@@ -26,8 +26,8 @@ class KibanaOne(unittest.TestCase):
             Ensure self.driver = webdriver.PhantomJS()
             is uncommented for remote testing.
             """
-            self.driver = webdriver.PhantomJS(service_args=service_args)
-            # self.driver = webdriver.PhantomJS()
+            # self.driver = webdriver.PhantomJS(service_args=service_args)
+            self.driver = webdriver.PhantomJS()
             # self.driver = webdriver.Firefox()
             self.driver.set_window_size(1920, 1080)
 
