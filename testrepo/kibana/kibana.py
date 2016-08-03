@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
-log_format = "%(asctime)s [%(levelname)s] %(message)s"
+log_format = "%(asctime)s %(name)s [%(levelname)s] %(message)s"
 logging.basicConfig(format=log_format, filename='kibana.log',
                     level=logging.ERROR)
 
@@ -52,16 +52,18 @@ class KibanaOne(unittest.TestCase):
             time.sleep(1)
         except Exception, e:
             self.driver.save_screenshot('setup.png')
-            logging.error("Setup failed... {}".format(e))
+            logging.error(
+                "Setup failed... {}".format(e), exc_info=True)
             raise
 
     def test_login(self):
         try:
-            header = self.driver.find_element_by_css_selector('.brand').text
+            header = self.driver.find_element_by_css_selector('.brandtf').text
             self.assertIn("Event Dashboard", header)
         except Exception, e:
             self.driver.save_screenshot('login_ss.png')
-            logging.error("Login test failed with... {}".format(e))
+            logging.error(
+                "Login test failed with... {}".format(e), exc_info=True)
             raise
 
     def test_graph_exists(self):
@@ -73,7 +75,8 @@ class KibanaOne(unittest.TestCase):
             self.assertIn("OPENSTACK EVENTS", panel.text)
         except Exception, e:
             self.driver.save_screenshot('graph_exists_ss.png')
-            logging.error("Graph test failed with... {}".format(e))
+            logging.error(
+                "Graph test failed with... {}".format(e), exc_info=True)
             raise
 
     def test_log_section_exists(self):
@@ -82,7 +85,8 @@ class KibanaOne(unittest.TestCase):
             self.assertIn("@timestamp host module logmessage", logs.text)
         except Exception, e:
             self.driver.save_screenshot('log_section_ss.png')
-            logging.error("Log Section test failed with... {}".format(e))
+            logging.error(
+                "Log Section test failed with... {}".format(e), exc_info=True)
             raise
 
     def test_log_content_exists(self):
@@ -106,7 +110,8 @@ class KibanaOne(unittest.TestCase):
             self.assertIsNotNone(mess_content)
         except Exception, e:
             self.driver.save_screenshot('log_content_ss.png')
-            logging.error("Log Content test failed with... {}".format(e))
+            logging.error(
+                "Log Content test failed with... {}".format(e), exc_info=True)
             raise
 
     def tearDown(self):
