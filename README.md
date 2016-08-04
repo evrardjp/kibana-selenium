@@ -45,7 +45,7 @@ In order to ensure operation in headless mode you will need to install phantomJS
 ## Test execution
 
 ```
-python /opt/kibana-selenium/testrepo/kibana/kibana/py
+python /opt/kibana-selenium/testrepo/kibana/kibana.py
 ```
 
 
