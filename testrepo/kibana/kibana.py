@@ -17,20 +17,28 @@ class KibanaOne(unittest.TestCase):
     def setUp(self):
         try:
             """
+            This is used to test remotely and through Jenkins.
+            Ensure when committing code that this value is not commented out.
+            """
+            self.driver = webdriver.PhantomJS()
+            self.driver.set_window_size(1920, 1080)
+
+            """
             :service_args: configuration management for phantomjs
              This is used for testing headless and locally.
             """
-            service_args = ['--proxy=localhost:9999', '--proxy-type=socks5']
-
-            """
-            Ensure self.driver = webdriver.PhantomJS()
-            is uncommented for remote testing.
-            """
+            # service_args = ['--proxy=localhost:9999', '--proxy-type=socks5']
             # self.driver = webdriver.PhantomJS(service_args=service_args)
-            self.driver = webdriver.PhantomJS()
-            # self.driver = webdriver.Firefox()
-            self.driver.set_window_size(1920, 1080)
 
+            """
+            The next two lines are needed if you want to execute
+            tests in firefox for the visual display of the tests.
+            You must also setup the proxy settings in firefox
+            before executing the tests. This is why the 20 second
+            sleep is needed.
+            """
+            # self.driver = webdriver.Firefox()
+            # time.sleep(20)
             """
             This will create the session within which all actions take place
             """
