@@ -35,13 +35,17 @@ In order to ensure operation in headless mode you will need to install phantomJS
     password: on infra
         grep -R "kibana_password" /etc/openstack_deploy/user_extras_secrets.yml
     external_vip: on infra
-        grep -R "external_lb_vip_address" /opt/rpc-openstack/jenkins-oa/inventory/group_vars/qe-iad3-lab03.yml
+        IAD3-LAB02:
+            grep -R "external_lb_vip_address" /etc/openstack_deploy/openstack_user_config.yml
+        
+        IAD3-LAB03L
+            grep -R "external_lb_vip_address" /opt/rpc-openstack/jenkins-oa/inventory/group_vars/qe-iad3-lab03.yml
 ```
 
 ## Test execution
 
 ```
-python /opt/kibana-selenium/testrepo/kibana/kibana/py
+python /opt/kibana-selenium/testrepo/kibana/kibana.py
 ```
 
 
