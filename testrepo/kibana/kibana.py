@@ -4,6 +4,7 @@ import time
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.proxy import *
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
@@ -21,7 +22,6 @@ class KibanaOne(unittest.TestCase):
             Ensure when committing code that this value is not commented out.
             """
             self.driver = webdriver.PhantomJS()
-            self.driver.set_window_size(1920, 1080)
 
             """
             :service_args: configuration management for phantomjs
@@ -31,24 +31,27 @@ class KibanaOne(unittest.TestCase):
             # self.driver = webdriver.PhantomJS(service_args=service_args)
 
             """
-            The next two lines are needed if you want to execute
+            The next few lines are needed if you want to execute
             tests in firefox for the visual display of the tests.
-            You must also setup the proxy settings in firefox
-            before executing the tests. This is why the 20 second
-            sleep is needed.
             """
-            # self.driver = webdriver.Firefox()
-            # time.sleep(20)
+            myProxy = "localhost:9999"
+            proxy = Proxy({
+                'proxyType': ProxyType.MANUAL,
+                'socksProxy': myProxy
+            })
+            # self.driver = webdriver.Firefox(proxy=proxy)
+
             """
             This will create the session within which all actions take place
             """
+            self.driver.set_window_size(1920, 1080)
             conf = config.app['kibana']
             user = conf['username']
             passwd = conf['kibana_password']
             ext_vip = conf['external_lb_vip_address']
             url = "http://{0}:{1}@{2}:8443/".format(user, passwd, ext_vip)
             self.driver.get(url)
-
+            time.sleep(2)
             """
             element is used to ensure the page has fully
             loaded before we start accessing the page elements
