@@ -27,8 +27,10 @@ class KibanaOne(unittest.TestCase):
             :service_args: configuration management for phantomjs
              This is used for testing headless and locally.
             """
-            # service_args = ['--proxy=localhost:9999', '--proxy-type=socks5']
-            # self.driver = webdriver.PhantomJS(service_args=service_args)
+            # service_args = ['--proxy=localhost:9999', '--proxy-type=socks5',
+            #  '--ignore-ssl-errors=true', '--ssl-protocol=any']
+            service_args = ['--ignore-ssl-errors=true', '--ssl-protocol=any']
+            self.driver = webdriver.PhantomJS(service_args=service_args)
 
             """
             The next few lines are needed if you want to execute
@@ -40,7 +42,7 @@ class KibanaOne(unittest.TestCase):
                 'socksProxy': myProxy
             })
             # self.driver = webdriver.Firefox(proxy=proxy)
-            self.driver = webdriver.Firefox()
+            # self.driver = webdriver.Firefox()
             """
             This will create the session within which all actions take place
             """
@@ -51,7 +53,7 @@ class KibanaOne(unittest.TestCase):
             ext_vip = conf['external_lb_vip_address']
             url = "https://{0}:{1}@{2}:8443/".format(user, passwd, ext_vip)
             self.driver.get(url)
-            time.sleep(2)
+            time.sleep(1)
             """
             element is used to ensure the page has fully
             loaded before we start accessing the page elements
@@ -60,7 +62,7 @@ class KibanaOne(unittest.TestCase):
                 ec.text_to_be_present_in_element((By.CSS_SELECTOR, ".name"),
                                                  "Home dashboard")
                 )
-            time.sleep(1)
+            time.sleep(2)
         except Exception, e:
             self.driver.save_screenshot('setup.png')
             logging.error(
@@ -76,6 +78,31 @@ class KibanaOne(unittest.TestCase):
             logging.error(
                 "Grid test failed with... {}".format(e), exc_info=True)
             raise
+
+    def test_all_event_logs(self):
+        try:
+            css = 'tr.discover-table-row:nth-child(1) > td:nth-child(1)'
+            expand = self.driver.find_element_by_css_selector(css)
+            expand.click()
+            css2 = 'table.table:nth-child(1) > tbody:nth-child(1) > tr'
+            list_loop = self.driver.find_elements_by_css_selector(css2)
+            for i, v in enumerate(list_loop, start=1):
+                if "message" in v.text:
+                    if "logmessage" in v.text:
+                        pass
+                    else:
+                        child = i
+            css3 = 'table.table:nth-child(1) > tbody:nth-child(1)' \
+                   ' > tr:nth-child({0}) > td:nth-child(3)'.format(child)
+            mess_content = self.driver.find_element_by_css_selector(css3)
+            self.assertIsNotNone(mess_content)
+        except Exception, e:
+            self.driver.save_screenshot('events.png')
+            logging.error(
+                "All Event test failed with... {}".format(e), exc_info=True)
+            raise
+
+
     """
     Decpricated due to kibana refactor 8-29-2016
     """
