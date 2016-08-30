@@ -17,7 +17,7 @@ In order to ensure operation in headless mode you will need to install phantomJS
     . ~/venv/kib-sel/bin/activate
 
 -Required: These steps are needed everytime you rebuild the project.
-    cd /opt && git clone https://github.com/Rydor/kibana-selenium.git   
+    cd /opt && git clone https://github.com/rcbops-qe/kibana-selenium.git   
     cd kibana-selenium
     mv ~/.pip/pip.conf ~/.pip/pip2.conf
     pip install -r requirements.txt
