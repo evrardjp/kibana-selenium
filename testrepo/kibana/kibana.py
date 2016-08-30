@@ -62,7 +62,7 @@ class KibanaOne(unittest.TestCase):
                 ec.text_to_be_present_in_element((By.CSS_SELECTOR, ".name"),
                                                  "Home dashboard")
                 )
-            time.sleep(2)
+            time.sleep(5)
         except Exception, e:
             self.driver.save_screenshot('setup.png')
             logging.error(
