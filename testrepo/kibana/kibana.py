@@ -52,16 +52,27 @@ class KibanaOne(unittest.TestCase):
             passwd = conf['kibana_password']
             ext_vip = conf['external_lb_vip_address']
             url = "https://{0}:{1}@{2}:8443/".format(user, passwd, ext_vip)
+            redirect_attempts = 5
             self.driver.get(url)
-            time.sleep(1)
+            while (url != self.driver.current_url) and (redirect_attempts > 0):
+                redirect_attempts -= 1
+                time.sleep(1)
+                url = self.driver.current_url
+                self.driver.get(url)
+                time.sleep(1)
             """
             element is used to ensure the page has fully
             loaded before we start accessing the page elements
             """
-            element = WebDriverWait(self.driver, 10).until(
+            time.sleep(15)
+            WebDriverWait(self.driver, 20).until(
                 ec.text_to_be_present_in_element((By.CSS_SELECTOR, ".name"),
                                                  "Home dashboard")
                 )
+            self.driver.implicitly_wait(20)
+            self.driver.find_element_by_class_name(
+                'navbar-timepicker-time-desc').click()
+            self.driver.find_element_by_link_text('Last 6 months').click()
             time.sleep(5)
         except Exception, e:
             self.driver.save_screenshot('setup.png')
