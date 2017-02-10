@@ -51,7 +51,7 @@ class KibanaOne(unittest.TestCase):
             user = conf['username']
             passwd = conf['kibana_password']
             ext_vip = conf['external_lb_vip_address']
-            url = "https://{0}:{1}@{2}:8443/".format(user, passwd, ext_vip)
+            url = "http://{0}:{1}@{2}:8443/".format(user, passwd, ext_vip)
             redirect_attempts = 5
             self.driver.get(url)
             while (url != self.driver.current_url) and (redirect_attempts > 0):
@@ -66,9 +66,7 @@ class KibanaOne(unittest.TestCase):
             """
             time.sleep(15)
             WebDriverWait(self.driver, 20).until(
-                ec.text_to_be_present_in_element((By.CSS_SELECTOR, ".name"),
-                                                 "Home dashboard")
-                )
+                ec.title_contains("Home dashboard"))
             self.driver.implicitly_wait(20)
             self.driver.find_element_by_class_name(
                 'navbar-timepicker-time-desc').click()
