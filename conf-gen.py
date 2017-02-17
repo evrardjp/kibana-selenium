@@ -36,6 +36,7 @@ if __name__ == '__main__':
     parser.add_argument("--vip-file")
     parser.add_argument("--password")
     parser.add_argument("--vip")
+    parser.add_argument('--secure', dest='secure', action='store_true')
     args = parser.parse_args()
 
     vip = args.vip or get_external_lb_vip(args.vip_file)
@@ -47,6 +48,8 @@ if __name__ == '__main__':
     append = open('config/app.yaml', 'a')
     append.write("  username: kibana\n")
     append.write("  kibana_password: {0}\n".format(pas))
-    append.write("  external_lb_vip_address: {0}".format(vip))
+    append.write("  external_lb_vip_address: {0}\n".format(vip))
+    protocol = (args.secure and "https") or "http"
+    append.write("  protocol: {0}\n".format(protocol))
     append.close()
     print "Config file generated into config/app.yaml"
