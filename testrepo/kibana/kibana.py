@@ -51,7 +51,9 @@ class KibanaOne(unittest.TestCase):
             user = conf['username']
             passwd = conf['kibana_password']
             ext_vip = conf['external_lb_vip_address']
-            url = "http://{0}:{1}@{2}:8443/".format(user, passwd, ext_vip)
+            protocol = conf.get('protocol') or "http"
+            url = "{0}://{1}:{2}@{3}:8443/".format(
+                protocol, user, passwd, ext_vip)
             redirect_attempts = 5
             self.driver.get(url)
             while (url != self.driver.current_url) and (redirect_attempts > 0):
